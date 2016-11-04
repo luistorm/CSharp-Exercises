@@ -26,6 +26,7 @@ namespace Bridge
         {
             InitializeComponent();
             Turno = 1;
+            CheckForIllegalCrossThreadCalls = false;
             Fichas = new List<PictureBox>();
             Fichas.Add(pictureBox1);
             Fichas.Add(pictureBox2);
@@ -61,6 +62,7 @@ namespace Bridge
         private void NewGame()
         {
             Turno = 1;
+            label2.Text = "Azul";
             for(int i = 0; i < Fichas.Count; i++)
             {
                 Fichas.ElementAt(i).Image = Bridge.Properties.Resources.brown;
@@ -131,6 +133,7 @@ namespace Bridge
                             Fichas.ElementAt(i).Image = Bridge.Properties.Resources.RED;
                             Fichas.ElementAt(i).Tag = 2;
                             Turno = 1;
+                            label2.Text = "Azul";
                             if (Ganar(2))
                             {
                                 MessageBox.Show("Gana Rojo");
@@ -141,6 +144,7 @@ namespace Bridge
                             Fichas.ElementAt(i).Image = Bridge.Properties.Resources.Blue;
                             Fichas.ElementAt(i).Tag = 1;
                             Turno = 2;
+                            label2.Text = "Rojo";
                             if (Ganar(1))
                             {
                                 MessageBox.Show("Gana Azul");
@@ -179,6 +183,7 @@ namespace Bridge
                 byte[] buff = Encoding.ASCII.GetBytes(s);
                 ListenServer.Send(buff);
                 Turno = 2;
+                label2.Text = "Rojo";
             }
             else if(radioButton2.Checked && Turno==2)
             {
@@ -188,6 +193,7 @@ namespace Bridge
                 byte[] buff = Encoding.ASCII.GetBytes(s);
                 Client.Send(buff);
                 Turno = 1;
+                label2.Text = "Azul";
             }
         }
 
@@ -354,6 +360,11 @@ namespace Bridge
                 byte[] buff = Encoding.ASCII.GetBytes(s);
                 Client.Send(buff);
             }
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
