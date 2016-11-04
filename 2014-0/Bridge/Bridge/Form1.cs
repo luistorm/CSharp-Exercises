@@ -31,7 +31,6 @@ namespace Bridge
             Fichas.Add(pictureBox4);
             Fichas.Add(pictureBox5);
             Fichas.Add(pictureBox6);
-            Fichas.Add(pictureBox6);
             Fichas.Add(pictureBox7);
             Fichas.Add(pictureBox8);
             Fichas.Add(pictureBox9);
