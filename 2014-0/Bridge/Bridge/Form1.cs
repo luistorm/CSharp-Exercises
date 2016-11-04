@@ -21,9 +21,11 @@ namespace Bridge
         private IPEndPoint EPClient;
         private Socket ListenServer;
         private Thread tListen;
+        private int Turno;
         public Form1()
         {
             InitializeComponent();
+            Turno = 1;
             Fichas = new List<PictureBox>();
             Fichas.Add(pictureBox1);
             Fichas.Add(pictureBox2);
@@ -58,6 +60,7 @@ namespace Bridge
         
         private void NewGame()
         {
+            Turno = 1;
             for(int i = 0; i < Fichas.Count; i++)
             {
                 Fichas.ElementAt(i).Image = Bridge.Properties.Resources.brown;
@@ -67,23 +70,23 @@ namespace Bridge
 
         private bool Ganar(int Player)
         {
-            int c;
             if (Player == 1)
             {
-                c = 0;
-                for(int i = 0; i < Fichas.Count; i++)
-                {
-                    if (((int)Fichas.ElementAt(i).Tag) == 1)
-                    {
-                        c++;
-                    }
-                    if (c == 5)
-                        return true;
-                    if(i%4==0 && i != 0)
-                    {
-                        c = 0;
-                    }
-                }
+                if (((int)pictureBox1.Tag) == 1 && ((int)pictureBox2.Tag) == 1 && ((int)pictureBox3.Tag) == 1 && ((int)pictureBox4.Tag) == 1
+                    && ((int)pictureBox5.Tag) == 1)
+                    return true;
+                if (((int)pictureBox6.Tag) == 1 && ((int)pictureBox7.Tag) == 1 && ((int)pictureBox8.Tag) == 1 && ((int)pictureBox9.Tag) == 1
+                    && ((int)pictureBox10.Tag) == 1)
+                    return true;
+                if (((int)pictureBox11.Tag) == 1 && ((int)pictureBox12.Tag) == 1 && ((int)pictureBox13.Tag) == 1 && ((int)pictureBox14.Tag) == 1
+                    && ((int)pictureBox15.Tag) == 1)
+                    return true;
+                if (((int)pictureBox16.Tag) == 1 && ((int)pictureBox17.Tag) == 1 && ((int)pictureBox18.Tag) == 1 && ((int)pictureBox19.Tag) == 1
+                    && ((int)pictureBox20.Tag) == 1)
+                    return true;
+                if (((int)pictureBox21.Tag) == 1 && ((int)pictureBox22.Tag) == 1 && ((int)pictureBox23.Tag) == 1 && ((int)pictureBox24.Tag) == 1
+                    && ((int)pictureBox25.Tag) == 1)
+                    return true;
             }
             else
             {
@@ -127,14 +130,40 @@ namespace Bridge
                         {
                             Fichas.ElementAt(i).Image = Bridge.Properties.Resources.RED;
                             Fichas.ElementAt(i).Tag = 2;
+                            Turno = 1;
+                            if (Ganar(2))
+                            {
+                                MessageBox.Show("Gana Rojo");
+                            }
                         }
                         else
                         {
                             Fichas.ElementAt(i).Image = Bridge.Properties.Resources.Blue;
                             Fichas.ElementAt(i).Tag = 1;
+                            Turno = 2;
+                            if (Ganar(1))
+                            {
+                                MessageBox.Show("Gana Azul");
+                            }
                         }      
                     }
+                    if (s.CompareTo("+") == 0)
+                    {
+                        NewGame();
+                    }
                 }
+            }
+            if (Ganar(1))
+            {
+                MessageBox.Show("Gana Azul");
+            }
+            else if (Ganar(2))
+            {
+                MessageBox.Show("Gana Rojo");
+            }
+            else
+            {
+                MessageBox.Show("Empate");
             }
         }
 
@@ -142,21 +171,23 @@ namespace Bridge
         {
             if (((int)PB.Tag) != 0)
                 return;
-            if (radioButton1.Checked)
+            if (radioButton1.Checked && Turno==1)
             {
                 PB.Image = Bridge.Properties.Resources.Blue;
                 PB.Tag = 1;
                 string s = "*" + i.ToString();
                 byte[] buff = Encoding.ASCII.GetBytes(s);
                 ListenServer.Send(buff);
+                Turno = 2;
             }
-            else
+            else if(radioButton2.Checked && Turno==2)
             {
                 PB.Image = Bridge.Properties.Resources.RED;
                 PB.Tag = 2;
                 string s = "*" + i.ToString();
                 byte[] buff = Encoding.ASCII.GetBytes(s);
                 Client.Send(buff);
+                Turno = 1;
             }
         }
 
@@ -306,6 +337,23 @@ namespace Bridge
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             tListen.Abort();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            NewGame();
+            if (radioButton1.Checked)
+            {
+                string s = "+";
+                byte[] buff = Encoding.ASCII.GetBytes(s);
+                ListenServer.Send(buff);
+            }
+            else
+            {
+                string s = "+";
+                byte[] buff = Encoding.ASCII.GetBytes(s);
+                Client.Send(buff);
+            }
         }
     }
 }

@@ -56,6 +56,7 @@
             this.pictureBox23 = new System.Windows.Forms.PictureBox();
             this.pictureBox24 = new System.Windows.Forms.PictureBox();
             this.pictureBox25 = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -365,11 +366,22 @@
             this.pictureBox25.TabStop = false;
             this.pictureBox25.Click += new System.EventHandler(this.pictureBox25_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(295, 104);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 48;
+            this.button2.Text = "Reiniciar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(375, 281);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.pictureBox25);
             this.Controls.Add(this.pictureBox24);
             this.Controls.Add(this.pictureBox23);
@@ -461,6 +473,7 @@
         private System.Windows.Forms.PictureBox pictureBox23;
         private System.Windows.Forms.PictureBox pictureBox24;
         private System.Windows.Forms.PictureBox pictureBox25;
+        private System.Windows.Forms.Button button2;
     }
 }
 
